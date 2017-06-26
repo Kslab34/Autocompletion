@@ -1,0 +1,86 @@
+package autocomplete;
+
+import java.util.Comparator;
+/**
+ * Assignment A03: Autocomplete Me
+ * CSIS-2420
+ * @author Andrew.rose
+ * @author Kelby Schulz
+ *
+ */
+public class BinarySearchDeluxe {
+
+	/**
+	 * Return the index of the first key in a[] that equals the search key,
+	 *  or -1 if no such key
+	 * @param a
+	 * @param key
+	 * @param comparator
+	 * @return
+	 */
+	public static <Key> int firstIndexOf(Key[] a, Key key, Comparator<Key> comparator){
+		if (a == null || key == null || comparator == null) throw new java.lang.NullPointerException();
+		if (a.length == 0) return -1 ;
+		int left = 0;
+    	int right = a.length - 1;
+    	while (left + 1 < right) {
+    		int middle = left + (right - left)/2;
+    		if (comparator.compare(key, a[middle]) <= 0) {
+    			right = middle;
+    		} else {
+    			left = middle;
+    		}
+    	}
+    	
+    	// To the left
+    	if (comparator.compare(key, a[left]) == 0) {
+    		return left;
+    	}
+    	
+    	// To the right
+    	if (comparator.compare(key, a[right]) == 0) {
+    		return right;
+    	}
+    	
+    	// Not Found
+    	return -1;
+
+    }
+	
+
+	/**
+	 * Return the index of the last key in a[] that equals the search key,
+	 *  or -1 if no such key
+	 * @param a
+	 * @param key
+	 * @param comparator
+	 * @return
+	 */
+	public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator){
+		if (a == null || key == null || comparator == null) throw new java.lang.NullPointerException();
+		if (a.length == 0) return -1;
+		int left = 0;
+    	int right = a.length - 1;
+    	while (left + 1 < right) {
+    		int middle = left + (right - left)/2;
+    		if (comparator.compare(key, a[middle]) < 0) {
+    			right = middle;
+    		} else {
+    			left = middle;
+    		}
+    	}
+    	
+    	// To the right
+    	if (comparator.compare(key, a[right]) == 0) {
+    		return right;
+    	}
+    	
+    	// To the left
+    	if (comparator.compare(key, a[left]) == 0) {
+    		return left;
+    	}
+    	
+    	// Not found
+    	return -1;
+    }
+}
